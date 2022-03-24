@@ -60,133 +60,132 @@
   <title>Frontend Mentor | Todo app</title>
 
 </head>
-<body class="relative h-screen bg-l-blue-200 dark:bg-d-blue-700">
+<body class="relative h-screen bg-l-blue-200 dark:bg-d-blue-700 ease-in-out duration-150">
 <div class="absolute inset-x-0">
   <img x-show="!darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-light.jpg" alt="mountains background image">
   <img x-show="darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-dark.jpg" alt="passage background image">
   <img x-show="!darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-light.jpg" alt="mountains background image">
   <img x-show="darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-dark.jpg" alt="passage background image">
 </div>
-<div class="max-w-screen-xl h-full mx-auto flex flex-col pt-10 px-8 gap-8">
+<div class="max-w-xl h-full mx-auto flex flex-col pt-10 px-8 md:px-[1.125rem] md:pt-20 gap-8">
   <header class="relative flex justify-between items-center">
-    <h1 class="uppercase text-[26px] tracking-[.5rem] text-l-blue-100 dark:d-blue-100">Todo</h1>
+    <h1 class="uppercase text-[26px] leading-3 tracking-[.5rem] text-l-blue-100 dark:d-blue-100 md:text-4xl">Todo</h1>
     <button
             x-on:click="darkMode = ! darkMode"
     >
-      <img x-show="!darkMode" class="w-5 h-5" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
-      <img x-show="darkMode" class="w-5 h-5" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
+      <img x-show="!darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
+      <img x-show="darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
     </button>
   </header>
   <main class="relative grow">
-    <section class="flex flex-col gap-4">
+    <section class="flex flex-col gap-4 md:gap-6">
       <h2 class="sr-only">todo list</h2>
 
-      <div class="bg-l-blue-100 dark:bg-d-blue-500 p-3.5 rounded-md">
-        <div class="flex items-center gap-2 justify-between">
-          <div class="flex items-center gap-2 grow">
-            <div class="relative w-5 h-5 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400">
-              <div class="w-4 h-4 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
+      <div class="bg-l-blue-100 dark:bg-d-blue-500 rounded-md pl-4 pr-2 py-2 md:pl-6 md:pr-4 md:py-4">
+        <div class="flex items-center gap-3 justify-between md:gap-5">
+            <div class="shrink-0 relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400">
+              <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
               </div>
             </div>
-            <input type="text" placeholder="Create a new todo..." class="w-full text-l-blue-500 dark:text-d-blue-200 text-xs outline-none bg-l-blue-100 dark:bg-d-blue-500 placeholder:text-l-blue-400 dark:placeholder:text-d-blue-400">
-          </div>
-          <button><img class="rotate-45 w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <input type="text" placeholder="Create a new todo..." class="peer w-full pt-1 caret-blue text-l-blue-500 dark:text-d-blue-200 text-xs outline-none bg-l-blue-100 dark:bg-d-blue-500 placeholder:text-l-blue-400 dark:placeholder:text-d-blue-300 md:text-lg">
+            <button class="invisible peer-focus:visible p-2 ease-in-out duration-150"><img class="rotate-45" src="images/icon-cross.svg" alt="add"></button>
         </div>
       </div>
-      <div class="bg-l-blue-100 dark:bg-d-blue-500 rounded-md">
+      <div class="bg-l-blue-100 dark:bg-d-blue-500 rounded-md shadow-xl">
         <ul class="divide-y divide-l-blue-200 dark:divide-d-blue-400 border-b border-l-blue-200 dark:border-d-blue-400">
-          <li class="p-4 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
+          <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
+            <div class="flex items-center gap-3 md:gap-5">
 <!--              completed styling-->
-              <div class="relative w-5 h-5 rounded-full grid place-items-center bg-gradient-to-br from-check-start to-check-stop">
-                <div class="w-4 h-4 rounded-full grid place-items-center">
-                  <img class="opacity-100" src="images/icon-check.svg" alt="check">
+              <div class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-gradient-to-br from-check-start to-check-stop">
+                <div class="w-4 h-4 md:w-5 md:h-5 rounded-full grid place-items-center">
+                  <img class="pt-0.5 opacity-100" src="images/icon-check.svg" alt="check">
                 </div>
               </div>
-              <span class="text-l-blue-300 dark:text-d-blue-400 text-xs line-through">Complete online JavaScript course</span>
+              <span class="text-l-blue-300 dark:text-d-blue-400 text-xs line-through md:text-lg md:pt-1">Complete online JavaScript course</span>
             </div>
-            <button><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <button class="md:opacity-0 md:group-hover:opacity-100 ease-in-out duration-150"><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
           </li>
-          <li class="p-4 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <div class="relative w-5 h-5 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop">
-                <div class="w-4 h-4 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
-                  <img class="opacity-0" src="images/icon-check.svg" alt="check">
+          <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
+            <div class="flex items-center gap-3 md:gap-5">
+              <div class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop ease-in-out duration-150">
+                <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
+                  <img class="pt-0.5 opacity-0" src="images/icon-check.svg" alt="check">
                 </div>
               </div>
-              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs">Jog around the park 3x</span>
+              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs md:text-lg md:pt-1">Jog around the park 3x</span>
             </div>
-            <button><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <button class="md:opacity-0 md:group-hover:opacity-100 ease-in-out duration-150"><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
           </li>
-          <li class="p-4 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <div class="relative w-5 h-5 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop">
-                <div class="w-4 h-4 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
-                  <img class="opacity-0" src="images/icon-check.svg" alt="check">
+          <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
+            <div class="flex items-center gap-3 md:gap-5">
+              <div class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop ease-in-out duration-150">
+                <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
+                  <img class="pt-0.5 opacity-0" src="images/icon-check.svg" alt="check">
                 </div>
               </div>
-              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs">10 minutes meditation</span>
+              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs md:text-lg md:pt-1">10 minutes meditation</span>
             </div>
-            <button><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <button class="md:opacity-0 md:group-hover:opacity-100 ease-in-out duration-150"><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
           </li>
-          <li class="p-4 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <div class="relative w-5 h-5 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop">
-                <div class="w-4 h-4 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
-                  <img class="opacity-0" src="images/icon-check.svg" alt="check">
+          <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
+            <div class="flex items-center gap-3 md:gap-5">
+              <div class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop ease-in-out duration-150">
+                <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
+                  <img class="pt-0.5 opacity-0" src="images/icon-check.svg" alt="check">
                 </div>
               </div>
-              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs">Read for 1 hour</span>
+              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs md:text-lg md:pt-1">Read for 1 hour</span>
             </div>
-            <button><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <button class="md:opacity-0 md:group-hover:opacity-100 ease-in-out duration-150"><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
           </li>
-          <li class="p-4 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <div class="relative w-5 h-5 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop">
-                <div class="w-4 h-4 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
-                  <img class="opacity-0" src="images/icon-check.svg" alt="check">
+          <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
+            <div class="flex items-center gap-3 md:gap-5">
+              <div class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop ease-in-out duration-150">
+                <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
+                  <img class="pt-0.5 opacity-0" src="images/icon-check.svg" alt="check">
                 </div>
               </div>
-              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs">Pick up groceries</span>
+              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs md:text-lg md:pt-1">Pick up groceries</span>
             </div>
-            <button><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <button class="md:opacity-0 md:group-hover:opacity-100 ease-in-out duration-150"><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
           </li>
-          <li class="p-4 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <div class="relative w-5 h-5 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop">
-                <div class="w-4 h-4 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
-                  <img class="opacity-0" src="images/icon-check.svg" alt="check">
+          <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
+            <div class="flex items-center gap-3 md:gap-5">
+              <div class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop ease-in-out duration-150">
+                <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
+                  <img class="pt-0.5 opacity-0" src="images/icon-check.svg" alt="check">
                 </div>
               </div>
-              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs">Complete Todo App Frontend Mentor</span>
+              <span class="text-l-blue-500 dark:text-d-blue-100 text-xs md:text-lg md:pt-1">Complete Todo App Frontend Mentor</span>
             </div>
-            <button><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
+            <button class="md:opacity-0 md:group-hover:opacity-100 ease-in-out duration-150"><img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove"></button>
           </li>
         </ul>
-        <div class="p-4 flex items-center justify-between">
-          <p class="text-l-blue-400 text-xs"><span>1</span> items left</p>
-          <button class="text-l-blue-400 dark:text-d-blue-300 text-xs">Clear Completed</button>
+        <div class="p-4 flex items-center justify-between md:px-6">
+          <p class="text-l-blue-400 text-xs md:text-sm"><span>1</span> items left</p>
+            <div class="hidden md:flex gap-4 items-center justify-center">
+                <!--        active styling-->
+                <button class="text-blue text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">All</button>
+                <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Active</button>
+                <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Completed</button>
+            </div>
+          <button class="text-l-blue-400 dark:text-d-blue-300 text-xs hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150 md:text-sm">Clear Completed</button>
         </div>
       </div>
-      <div class="bg-l-blue-100 dark:bg-d-blue-500 px-4 pt-3.5 pb-2.5 rounded-md flex gap-4 items-center justify-center">
+      <div class="bg-l-blue-100 dark:bg-d-blue-500 px-4 pt-3.5 pb-2.5 rounded-md flex gap-4 items-center justify-center md:hidden">
 <!--        active styling-->
-        <button class="text-blue text-sm tracking-wide font-bold">All</button>
-        <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold">Active</button>
-        <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold">Completed</button>
+        <button class="text-blue text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">All</button>
+        <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Active</button>
+        <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Completed</button>
       </div>
-
 
     </section>
 
-    <span class="block pt-12 text-center text-sm text-l-blue-400 dark:tet-d-blue-300">Drag and drop to reorder list</span>
+    <span class="block pt-12 text-center text-sm text-l-blue-400 dark:text-d-blue-300">Drag and drop to reorder list</span>
   </main>
-  <footer class="relative pb-2 text-l-blue-400 dark:text-d-blue-100">
-    <p class="text-center text-xs">
-      Challenge by <a class="text-l-blue-400 hover:underline hover:text-l-blue-500 dark:text-d-blue-100 dark:hover:text-d-blue-200 ease-in-out duration-150" href="https://www.frontendmentor.io/challenges/sunnyside-agency-landing-page-7yVs3B6ef" target="_blank">Frontend Mentor</a>.
-    </p>
-    <p class="text-center text-xs">
-      Coded by <a class="text-l-blue-400 hover:underline hover:text-l-blue-500 dark:text-d-blue-100 dark:hover:text-d-blue-200 ease-in-out duration-150" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
-    </p>
+  <footer class="relative pb-2 text-l-blue-400 text-xs mx-auto dark:text-d-blue-300">
+      Challenge by <a class="text-l-blue-400 hover:underline hover:text-l-blue-500 dark:text-d-blue-300 dark:hover:text-d-blue-200 ease-in-out duration-150" href="https://www.frontendmentor.io/challenges/sunnyside-agency-landing-page-7yVs3B6ef" target="_blank">Frontend Mentor</a>.
+      Coded by <a class="text-l-blue-400 hover:underline hover:text-l-blue-500 dark:text-d-blue-300 dark:hover:text-d-blue-200 ease-in-out duration-150" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
   </footer>
 </div>
 </body>

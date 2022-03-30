@@ -1,4 +1,4 @@
-function todo() {
+window.todo = function () {
     return {
         tasks : [
             {id: 1, title: 'Complete online JavaScript course', completed: true},

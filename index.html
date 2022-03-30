@@ -17,42 +17,12 @@
 
   <!-- Tailwind play cdn ( for development and play purposes ) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        fontFamily: {
-          'sans': ['Josefin Sans', 'sans-serif'],
-        },
-        colors: {
-          blue: 'hsl(220, 98%, 61%)',
-          'check-start': 'hsl(192, 100%, 67%)',
-          'check-stop': 'hsl(280, 87%, 65%)',
+  <script src="js/tailwind-config.js"></script>
 
-          // light theme
-          'l-blue-100': 'hsl(0, 0%, 98%)', // very light gray
-          'l-blue-200': 'hsl(236, 33%, 92%)', // very light gray-blue
-          'l-blue-300': 'hsl(233,11%, 84%)', // light gray-blue
-          'l-blue-400': 'hsl(236, 9%, 61%)', // dark gray-blue
-          'l-blue-500': 'hsl(235, 19%, 35%)',  // Very dark gray-blue
+    <!-- Alpine Plugins -->
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 
-          // dark theme
-          'd-blue-100': 'hsl(234, 39%, 85%)', // light gray-blue
-          'd-blue-200': 'hsl(236,33%,92%)', // light gray-blue (hover)
-          'd-blue-300' : 'hsl(234, 11%, 52%)', // dark gray-blue
-          'd-blue-400' : 'hsl(233, 14%, 35%)', // very dark gray-blue
-          'd-blue-500' : 'hsl(237, 14%, 26%)', // very very dark gray-blue
-          'd-blue-600': 'hsl(235, 24%, 19%)', // very dark desaturated blue
-          'd-blue-700': 'hsl(235, 21%, 11%)', // very dark blue
-
-
-
-        }
-      }
-    }
-  </script>
-
-  <!-- Alpine.js -->
+    <!-- Alpine Core -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
@@ -70,36 +40,54 @@
 <div class="max-w-xl h-full mx-auto flex flex-col pt-10 px-8 md:px-[1.125rem] md:pt-20 gap-8">
   <header class="relative flex justify-between items-center">
     <h1 class="uppercase text-[26px] leading-3 tracking-[.5rem] text-l-blue-100 dark:d-blue-100 md:text-4xl">Todo</h1>
-    <button x-on:click="darkMode = ! darkMode">
+    <button @click="darkMode = ! darkMode">
       <img x-show="!darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
       <img x-show="darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
     </button>
   </header>
   <main class="relative grow">
-    <section class="flex flex-col gap-4 md:gap-6">
+    <section
+        x-data="todo()"
+        class="flex flex-col gap-4 md:gap-6"
+    >
       <h2 class="sr-only">todo list</h2>
 
       <div class="bg-l-blue-100 dark:bg-d-blue-500 rounded-md pl-4 pr-2 py-2 md:pl-6 md:pr-4 md:py-4">
         <div class="flex items-center gap-3 justify-between md:gap-5">
-            <div class="shrink-0 relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center bg-l-blue-200 dark:bg-d-blue-400">
-              <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-l-blue-100 dark:bg-d-blue-500 grid place-items-center">
-              </div>
+            <button
+                    type="button"
+                    x-model="allTasksCompleted"
+                    @click="toggleCompleteAllTasks()"
+                    :class="allTasksCompleted ? 'bg-gradient-to-br from-check-start to-check-stop' : 'bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop'"
+                    class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center ease-in-out duration-150"
+            >
+                <div :class="allTasksCompleted ? '' : 'bg-l-blue-100 dark:bg-d-blue-500'" class="w-4 h-4 md:w-5 md:h-5 rounded-full grid place-items-center">
+                    <img :class="allTasksCompleted ? 'opacity-100' : 'opacity-0'" class="pt-0.5" src="images/icon-check.svg" alt="check">
+                </div>
+            </button>
+            <div class="grow">
+                <input
+                    x-model="newTask"
+                    @keyup.enter="addTask"
+                    type="text"
+                    placeholder="Create a new todo..."
+                    class="peer w-full caret-blue text-l-blue-500 dark:text-d-blue-200 text-xs outline-none bg-l-blue-100 dark:bg-d-blue-500 placeholder:text-l-blue-400 focus:placeholder:opacity-0 dark:placeholder:text-d-blue-300 md:text-lg"
+                >
             </div>
-            <input type="text" placeholder="Create a new todo..." class="peer w-full pt-1 caret-blue text-l-blue-500 dark:text-d-blue-200 text-xs outline-none bg-l-blue-100 dark:bg-d-blue-500 placeholder:text-l-blue-400 focus:placeholder:opacity-0 dark:placeholder:text-d-blue-300 md:text-lg">
-            <button type="button" class="invisible peer-focus:visible focus:visible p-2 ease-in-out duration-150"><img class="rotate-45" src="images/icon-cross.svg" alt="add"></button>
+            <button @click="addTask" type="submit" class="md:invisible md:peer-focus:visible focus:visible p-2 ease-in-out duration-150"><img class="rotate-45" src="images/icon-cross.svg" alt="add"></button>
         </div>
       </div>
       <div class="bg-l-blue-100 dark:bg-d-blue-500 rounded-md shadow-xl">
         <ul
-            x-data="todo()"
+            x-show="tasks.length"
             class="divide-y divide-l-blue-200 dark:divide-d-blue-400 border-b border-l-blue-200 dark:border-d-blue-400"
         >
-            <template x-for="task in tasks">
+            <template x-for="task in filteredTasks" :key="task.id">
                 <li class="p-4 flex items-center justify-between gap-2 group md:px-6">
-                    <div class="flex items-center gap-3 md:gap-5">
+                    <div class="flex items-center grow gap-3 md:gap-5">
                         <button
                             type="button"
-                            x-on:click="completeTask()"
+                            @click="completeTask"
                             :class="task.completed ? 'bg-gradient-to-br from-check-start to-check-stop' : 'bg-l-blue-200 dark:bg-d-blue-400 hover:bg-gradient-to-br hover:from-check-start hover:to-check-stop'"
                             class="relative w-5 h-5 md:w-6 md:h-6 rounded-full grid place-items-center ease-in-out duration-150"
                         >
@@ -107,11 +95,21 @@
                                 <img :class="task.completed ? 'opacity-100' : 'opacity-0'" class="pt-0.5" src="images/icon-check.svg" alt="check">
                             </div>
                         </button>
-                        <span :class="task.completed ? 'text-l-blue-300 dark:text-d-blue-400 line-through' : 'text-l-blue-500 dark:text-d-blue-100'" class="text-xs md:text-lg md:pt-1" x-text="task.title"></span>
+                        <div @dblclick="editTask(task)" class="grow">
+                            <span x-show="task !== editedTask" :class="task.completed ? 'text-l-blue-300 dark:text-d-blue-400 line-through' : 'text-l-blue-500 dark:text-d-blue-100'" class="text-xs md:text-lg md:pt-1" x-text="task.title"></span>
+                            <input
+                                x-show="task === editedTask"
+                                x-model="task.title"
+                                @keyup.enter="editComplete(task)"
+                                @keyup.escape="cancelEdit(task)"
+                                type="text"
+                                class="w-full -mb-0.5 border-b-2 border-blue caret-blue text-l-blue-500 dark:text-d-blue-200 text-xs outline-none bg-l-blue-100 dark:bg-d-blue-500 placeholder:text-l-blue-400 dark:placeholder:text-d-blue-300 md:text-lg"
+                            >
+                        </div>
                     </div>
                     <button
                         type="button"
-                        x-on:click="remove()"
+                        @click="removeTask(task)"
                         class="md:opacity-0 md:group-hover:opacity-100 focus:opacity-100 ease-in-out duration-150"
                     >
                         <img class="w-3.5 h-3.5" src="images/icon-cross.svg" alt="remove">
@@ -119,18 +117,34 @@
                 </li>
             </template>
         </ul>
-        <div class="p-4 flex items-center justify-between md:px-6">
-          <p class="text-l-blue-400 text-xs md:text-sm"><span>1</span> items left</p>
+        <div
+            x-show="tasks.length"
+            class="p-4 flex items-center justify-between md:px-6"
+        >
+            <div class="h-6 flex items-center">
+                <p class="text-l-blue-400 text-xs md:text-sm"><span x-text="activeTasks.length"></span> <span x-text="activeTasks.length === 1 ? 'item' : 'items'"></span> left</p>
+            </div>
             <div class="hidden md:flex gap-4 items-center justify-center">
                 <!--        active styling-->
-                <button class="text-blue text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">All</button>
-                <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Active</button>
-                <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Completed</button>
+                <button @click="filter = 'all'" type="button" :class="filter === 'all' ? 'text-blue' : 'text-l-blue-400 dark:text-d-blue-300'" class="text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">All</button>
+                <button @click="filter = 'active'" type="button" :class="filter === 'active' ? 'text-blue' : 'text-l-blue-400 dark:text-d-blue-300'" class="text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Active</button>
+                <button @click="filter = 'completed'" type="button" :class="filter === 'completed' ? 'text-blue' : 'text-l-blue-400 dark:text-d-blue-300'" class="text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Completed</button>
             </div>
-          <button class="text-l-blue-400 dark:text-d-blue-300 text-xs hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150 md:text-sm">Clear Completed</button>
+            <div class="w-28 flex justify-end">
+                <button
+                    x-show="completedTasks.length"
+                    @click="tasks = activeTasks"
+                    class="text-l-blue-400 dark:text-d-blue-300 text-xs hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150 md:text-sm"
+                >
+                    Clear Completed
+                </button>
+            </div>
         </div>
       </div>
-      <div class="bg-l-blue-100 dark:bg-d-blue-500 px-4 pt-3.5 pb-2.5 rounded-md flex gap-4 items-center justify-center md:hidden">
+      <div
+          x-show="tasks.length"
+          class="bg-l-blue-100 dark:bg-d-blue-500 px-4 pt-3.5 pb-2.5 rounded-md flex gap-4 items-center justify-center md:hidden"
+      >
 <!--        active styling-->
         <button class="text-blue text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">All</button>
         <button class="text-l-blue-400 dark:text-d-blue-300 text-sm tracking-wide font-bold hover:text-l-blue-500 dark:hover:text-d-blue-200 ease-in-out duration-150">Active</button>
@@ -146,32 +160,6 @@
       Coded by <a class="text-l-blue-400 hover:underline hover:text-l-blue-500 dark:text-d-blue-300 dark:hover:text-d-blue-200 ease-in-out duration-150" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
   </footer>
 </div>
-<script>
-    function todo() {
-        return {
-            tasks : [
-                {id: 1, title: 'Complete online JavaScript course', completed: true},
-                {id: 2, title: 'Jog around the park 3x', completed: false},
-                {id: 3, title: '10 minutes meditation', completed: false},
-                {id: 4, title: 'Read for 1 hour', completed: false},
-                {id: 5, title: 'Pick up groceries', completed: false},
-                {id: 6, title: 'Complete Todo App Frontend Mentor', completed: false}
-            ],
-
-            get completedTasks() {
-                return this.tasks.filter(task => task.completed);
-            },
-
-            get activeTasks() {
-                return this.tasks.filter(task => ! task.completed);
-            },
-
-            completeTask() {
-                this.task.completed = ! this.task.completed
-            },
-
-        }
-    }
-</script>
+<script src="js/todoApp.js"></script>
 </body>
 </html>

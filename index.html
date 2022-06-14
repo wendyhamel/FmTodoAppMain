@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html
-        lang="en"
-        x-data="{darkMode: localStorage.getItem('dark') === 'true'}"
-        x-init="$watch('darkMode', val => localStorage.setItem('dark', val))"
-        x-bind:class="{'dark': darkMode}"
+    lang="en"
+    x-data="todo()"
+    :class="$store.darkMode && 'dark'"
 >
 <head>
   <meta charset="UTF-8">
@@ -23,30 +22,27 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+
   <title>Frontend Mentor | Todo app</title>
 
 </head>
 <body class="relative h-screen bg-l-blue-200 dark:bg-d-blue-700 ease-in-out duration-150">
 <div class="absolute inset-x-0">
-  <img x-show="!darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-light.jpg" alt="mountains background image">
-  <img x-show="darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-dark.jpg" alt="passage background image">
-  <img x-show="!darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-light.jpg" alt="mountains background image">
-  <img x-show="darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-dark.jpg" alt="passage background image">
+  <img x-show="!$store.darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-light.jpg" alt="mountains background image">
+  <img x-show="$store.darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-dark.jpg" alt="passage background image">
+  <img x-show="!$store.darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-light.jpg" alt="mountains background image">
+  <img x-show="$store.darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-dark.jpg" alt="passage background image">
 </div>
 <div class="max-w-xl h-full mx-auto flex flex-col pt-10 px-8 md:px-[1.125rem] md:pt-20 gap-8">
   <header class="relative flex justify-between items-center">
     <h1 class="uppercase text-[26px] leading-3 tracking-[.5rem] text-l-blue-100 dark:d-blue-100 md:text-4xl">Todo</h1>
-    <button @click="darkMode = ! darkMode">
-      <img x-show="!darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
-      <img x-show="darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
+    <button @click="$store.darkMode = ! $store.darkMode">
+      <img x-show="!$store.darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
+      <img x-show="$store.darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
     </button>
   </header>
   <main class="relative grow">
-    <section
-        x-data="todo()"
-        class="flex flex-col gap-4 md:gap-6"
-    >
+    <section class="flex flex-col gap-4 md:gap-6">
       <h2 class="sr-only">todo list</h2>
 
       <div class="bg-l-blue-100 dark:bg-d-blue-500 rounded-md pl-4 pr-2 py-2 md:pl-6 md:pr-4 md:py-4">

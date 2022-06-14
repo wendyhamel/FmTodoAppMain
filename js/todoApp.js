@@ -1,3 +1,6 @@
+document.addEventListener('alpine:init', () => {
+    Alpine.store('darkMode', false)
+});
 window.todo = function () {
     return {
         tasks : [

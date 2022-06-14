@@ -1,19 +1,19 @@
 window.todo = function () {
     return {
-        tasks : [
+        tasks : Alpine.$persist([
             {id: 1, title: 'Complete online JavaScript course', completed: true},
             {id: 2, title: 'Jog around the park 3x', completed: false},
             {id: 3, title: '10 minutes meditation', completed: false},
             {id: 4, title: 'Read for 1 hour', completed: false},
             {id: 5, title: 'Pick up groceries', completed: false},
             {id: 6, title: 'Complete Todo App Frontend Mentor', completed: false}
-        ],
+        ]),
         darkMode: Alpine.$persist(true),
         filteredTasks : [],
         editedTask: null,
         removedTask: null,
         newTask: '',
-        filter: 'all',
+        filter: Alpine.$persist('all'),
 
         get completedTasks() {
             return this.tasks.filter(task => task.completed);

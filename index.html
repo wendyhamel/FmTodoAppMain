@@ -2,7 +2,7 @@
 <html
     lang="en"
     x-data="todo()"
-    :class="$store.darkMode && 'dark'"
+    :class="darkMode && 'dark'"
 >
 <head>
   <meta charset="UTF-8">
@@ -19,6 +19,10 @@
   <script src="js/tailwind-config.js"></script>
 
   <!-- Alpine.js -->
+    <!-- Alpine Plugins -->
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine Core -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
@@ -28,17 +32,17 @@
 </head>
 <body class="relative h-screen bg-l-blue-200 dark:bg-d-blue-700 ease-in-out duration-150">
 <div class="absolute inset-x-0">
-  <img x-show="!$store.darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-light.jpg" alt="mountains background image">
-  <img x-show="$store.darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-dark.jpg" alt="passage background image">
-  <img x-show="!$store.darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-light.jpg" alt="mountains background image">
-  <img x-show="$store.darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-dark.jpg" alt="passage background image">
+  <img x-show="!darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-light.jpg" alt="mountains background image">
+  <img x-show="darkMode" class="block object-cover w-full sm:hidden" src="images/bg-mobile-dark.jpg" alt="passage background image">
+  <img x-show="!darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-light.jpg" alt="mountains background image">
+  <img x-show="darkMode" class="hidden sm:block sm:object-cover sm:w-full" src="images/bg-desktop-dark.jpg" alt="passage background image">
 </div>
 <div class="max-w-xl h-full mx-auto flex flex-col pt-10 px-8 md:px-[1.125rem] md:pt-20 gap-8">
   <header class="relative flex justify-between items-center">
     <h1 class="uppercase text-[26px] leading-3 tracking-[.5rem] text-l-blue-100 dark:d-blue-100 md:text-4xl">Todo</h1>
-    <button @click="$store.darkMode = ! $store.darkMode">
-      <img x-show="!$store.darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
-      <img x-show="$store.darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
+    <button @click="darkMode = ! darkMode">
+      <img x-show="!darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-moon.svg" alt="moon icon to toggle darkmode">
+      <img x-show="darkMode" class="w-5 h-5 md:w-full md:h-full" src="images/icon-sun.svg" alt="sun icon to toggle darkmode">
     </button>
   </header>
   <main class="relative grow">

@@ -1,6 +1,3 @@
-document.addEventListener('alpine:init', () => {
-    Alpine.store('darkMode', false)
-});
 window.todo = function () {
     return {
         tasks : [
@@ -11,7 +8,7 @@ window.todo = function () {
             {id: 5, title: 'Pick up groceries', completed: false},
             {id: 6, title: 'Complete Todo App Frontend Mentor', completed: false}
         ],
-
+        darkMode: Alpine.$persist(true),
         filteredTasks : [],
         editedTask: null,
         removedTask: null,
